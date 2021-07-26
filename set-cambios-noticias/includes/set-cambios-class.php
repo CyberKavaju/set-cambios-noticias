@@ -31,15 +31,30 @@ class Set_Cambios_Widget extends WP_Widget {
 		}
     //widget main content
 		$html = file_get_html('https://www.set.gov.py/portal/PARAGUAY-SET/');
-		$cambios = $html->find('table.UITable', 0);
+		$cambios = $html->find('table.UITable tbody', 0);
+		$cambiosTitulo = $cambios->find('td.UICotizacionTitulo', 0);
+		$cambiosCompra = $cambios->find('td.UICotizacion p', 0)->plaintext;
+		$cambiosVenta = $cambios->find('td.UICotizacion p', 1)->plaintext;
 		$noticias = $html->find('div#UICLVPresentation_05f1f908-d473-4477-b8b8-09a3db149975', 0);
 		$links = $noticias->find('a');
-		echo $cambios;
 		?>
-			<ul>
+				<div>
+			<p class="cambiostitulo">
+			<b>
+				<?php echo $cambiosTitulo; ?>
+			</b>	
+			</p>
+			<p class="cambioscompra">
+				<b>Compra 1USD:</b>  <?php echo str_replace(' ', '', $cambiosCompra); ?>
+			</p>
+			<p class="cambiosventa">
+				<b>Venta 1USD:</b>  <?php echo str_replace(' ', '', $cambiosVenta); ?>
+			</p>
+			</div>
+			<ul class="noticias">
 			<?php foreach ($links as $link) : ?>
 				<?php if ($link->innertext != "Leer más") : ?>
-					<li><a href="https://www.set.gov.py<?php echo $link->href; ?>" target="_blank"> <?php echo $link->innertext; ?></a></li>
+					<li>- <a href="https://www.set.gov.py<?php echo $link->href; ?>" target="_blank"> <?php echo $link->innertext; ?></a></li>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</ul>

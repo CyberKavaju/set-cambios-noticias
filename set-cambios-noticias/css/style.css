@@ -1,1 +1,11 @@
 /*SET Cambios Style*/
+.cambiostitulo, .cambioscompra, .cambiosventa{
+  border-bottom: 1px solid #fff;
+}
+ul.noticias li a{
+  color:lightblue;
+  text-decoration: underline;
+}
+ul.noticias li a:hover{
+  color: blue;
+}
